@@ -1,0 +1,80 @@
+{
+	"name": "diff-tool-sample",
+	"publisher": "vscode-samples",
+	"displayName": "Copilot Diff Tool",
+	"description": "Chat extension to assist with analysing code changes.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/digimangos-work-demo/vscode-diff-chat.git"
+	},
+	"version": "0.1.0",
+	"engines": {
+		"vscode": "^1.93.0"
+	},
+	"categories": [
+		"AI",
+		"Chat"
+	],
+	"activationEvents": [],
+	"contributes": {
+		"chatParticipants": [
+			{
+				"id": "chat-sample.diff",
+				"fullName": "Git diff tools",
+				"name": "diff",
+				"description": "Analyzes file differences and reviews them",
+				"isSticky": true,
+				"commands": [
+					{
+						"name": "diffWithHead",
+						"description": "Look at file differences with HEAD and review them"
+					}
+				],
+				"disambiguation": [
+					{
+						"categoryName": "diff",
+						"description": "The user wants to make a diff for uncommited changes",
+						"examples": []
+					}
+				]
+			}
+		],
+		"commands": [
+			{
+				"command": "vscode-diff-chat.diffWithHead",
+				"title": "Analyse diff (HEAD)"
+			}
+		],
+		"menus": {
+			"scm/resourceState/context": [
+				{
+					"id": "scm.diffWithHead",
+					"group": "diff-chat@1",
+					"command": "vscode-diff-chat.diffWithHead",
+					"when": "scmProvider == git"
+				}
+			]
+		}
+	},
+	"main": "./out/extension.js",
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"lint": "eslint \"src/**/*.ts\"",
+		"watch": "tsc -watch -p ./"
+	},
+	"extensionDependencies": [
+		"vscode.git"
+	],
+	"dependencies": {
+		"@vscode/prompt-tsx": "^0.2.11-alpha"
+	},
+	"devDependencies": {
+		"@types/node": "^20.5.9",
+		"@types/vscode": "1.93.0",
+		"@typescript-eslint/eslint-plugin": "^7.14.0",
+		"@typescript-eslint/parser": "^7.14.0",
+		"eslint": "^8.26.0",
+		"typescript": "^5.5.2"
+	}
+}
